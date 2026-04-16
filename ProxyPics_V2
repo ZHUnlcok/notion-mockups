@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProxyPics Template Mockup — Unlock Technologies</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+  background: #DDE3EA; padding: 0 0 48px;
+}
+
+/* ── Edit banner ─────── */
+.edit-banner {
+  background: #1A3A6B; color: #fff;
+  padding: 10px 20px; text-align: center;
+  font-size: 13px; line-height: 1.6;
+  position: sticky; top: 0; z-index: 100;
+}
+.edit-banner strong { color: #F5D87A; }
+.edit-toggle {
+  display: inline-block; margin-left: 12px;
+  background: #F5D87A; color: #1A3A6B;
+  font-size: 12px; font-weight: 800;
+  padding: 3px 14px; border-radius: 20px;
+  cursor: pointer; border: none; user-select: none;
+}
+.edit-toggle:hover { background: #FFE44D; }
+
+/* ── Page header ─────── */
+.page-header { text-align: center; padding: 28px 16px 20px; }
+.page-header h1 { font-size: 20px; color: #1A3A6B; font-weight: 800; margin-bottom: 4px; }
+.page-header p { font-size: 12px; color: #888; }
+
+/* ── Screen grid ─────── */
+.screen-grid { display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; align-items: flex-start; padding: 0 16px; }
+.phone-wrap { display: flex; flex-direction: column; align-items: center; }
+.screen-label { font-size: 11px; font-weight: 800; color: #1A3A6B; margin-bottom: 7px; text-transform: uppercase; letter-spacing: .6px; text-align: center; max-width: 320px; line-height: 1.4; }
+
+/* ── Phone shell ─────── */
+.phone { width: 320px; border-radius: 34px; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,.22), 0 2px 8px rgba(0,0,0,.1); overflow: hidden; border: 7px solid #1C1C1E; }
+.phone::before { content:''; display:block; width:90px; height:20px; background:#1C1C1E; border-radius:0 0 14px 14px; margin:0 auto; }
+.app-bar { display:flex; align-items:center; justify-content:space-between; padding:8px 14px 7px; background:#fff; border-bottom:1px solid #EBEBEB; }
+.back { font-size:22px; color:#1A3A6B; font-weight:300; line-height:1; }
+.app-logo { display:flex; align-items:center; gap:5px; }
+.logo-u { width:26px; height:26px; background:#1A3A6B; border-radius:7px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; font-weight:900; }
+.logo-text { font-size:17px; font-weight:900; color:#1A3A6B; letter-spacing:-.5px; }
+.logo-dot { color:#F5A623; }
+.help-btn { width:24px; height:24px; border-radius:50%; border:2px solid #1A3A6B; color:#1A3A6B; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+
+/* ── Screen body ─────── */
+.screen-body { overflow-y:auto; max-height:600px; background:#F5F7FA; scrollbar-width:none; position:relative; }
+.screen-body::-webkit-scrollbar { display:none; }
+.addr-bar { background:#1A3A6B; color:#fff; padding:7px 14px; font-size:11.5px; font-weight:600; line-height:1.35; }
+
+/* ── Section dividers ── */
+.sec-div { background:#E4EAF2; padding:6px 14px; font-size:11px; font-weight:800; color:#1A3A6B; letter-spacing:.7px; text-transform:uppercase; display:flex; align-items:center; justify-content:space-between; }
+.sec-div.opt { background:#FFF3E0; color:#8B4500; }
+.badge { font-size:9.5px; font-weight:700; padding:2px 7px; border-radius:9px; background:#C8D8F0; color:#1A3A6B; }
+.badge.opt { background:#FFE0A0; color:#7A3500; }
+
+/* ── Instruction blocks ─ */
+.instr-block { background:#fff; padding:10px 14px; border-bottom:1px solid #F0F0F0; }
+.instr-row { display:flex; align-items:flex-start; gap:8px; }
+.instr-icon { font-size:17px; flex-shrink:0; margin-top:1px; }
+.instr-title { font-size:13px; font-weight:700; color:#111; margin-bottom:3px; }
+.instr-list { font-size:11.5px; color:#444; line-height:1.6; padding-left:14px; }
+.instr-list li { list-style:disc; margin-bottom:1px; }
+
+/* ── Photo cards ─────── */
+.photo-card { background:#fff; border-bottom:1px solid #EBEBEB; padding:11px 14px; display:flex; align-items:flex-start; gap:10px; }
+.thumb { flex-shrink:0; width:64px; height:64px; border-radius:10px; border:1.5px dashed #C8C8C8; background:#F0F4F8; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; }
+.thumb-icon { font-size:22px; color:#B0B8C4; }
+.thumb-label { font-size:8px; color:#B0B8C4; font-weight:600; text-transform:uppercase; }
+.thumb.done { background:linear-gradient(135deg,#6AADCF,#3A7FA8); border:1.5px solid #1A3A6B; }
+.thumb.done .thumb-icon { color:#fff; font-size:26px; }
+.photo-info { flex:1; min-width:0; }
+.photo-title { font-size:13.5px; font-weight:700; color:#111; margin-bottom:3px; line-height:1.3; }
+.photo-desc { font-size:11px; color:#555; line-height:1.55; }
+.tag { display:inline-block; font-size:9.5px; font-weight:700; padding:2px 7px; border-radius:9px; margin-top:4px; margin-right:3px; }
+.tag-req { background:#EAF0FF; color:#1A3A6B; }
+.tag-opt { background:#FFF3E0; color:#8B4500; }
+.status-ok { font-size:11px; font-weight:800; color:#27AE60; margin-top:4px; }
+.status-retake { font-size:10.5px; color:#C0392B; margin-top:4px; line-height:1.4; font-style:italic; }
+.circle { width:22px; height:22px; border-radius:50%; border:2px solid #CCC; flex-shrink:0; margin-top:3px; }
+.circle.done { background:#1A3A6B; border-color:#1A3A6B; display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; }
+
+/* ── Tap-to-add cards ── */
+.tap-card { background:#F0F5FF; border-bottom:1px solid #D0DDEF; padding:11px 14px; display:flex; align-items:flex-start; gap:10px; }
+.tap-icon-box { flex-shrink:0; width:64px; height:64px; border-radius:10px; border:1.5px solid #1A3A6B; background:#E4EAF2; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; }
+.tap-cta { font-size:10.5px; color:#1A3A6B; font-weight:800; margin-top:4px; }
+.room-done-chip { display:inline-block; font-size:9.5px; font-weight:700; background:#E4EAF2; color:#1A3A6B; padding:2px 8px; border-radius:9px; margin:3px 3px 0 0; }
+
+/* ── Buttons & nav ───── */
+.save-back { background:#fff; border-top:1px solid #E5E5E5; padding:11px 14px; font-size:13px; font-weight:700; color:#1A3A6B; text-align:center; }
+.btn-primary { display:block; width:100%; background:#1A3A6B; color:#fff; font-size:14px; font-weight:800; padding:13px; text-align:center; border:none; letter-spacing:.3px; }
+.bottom-nav { display:flex; border-top:1px solid #E5E5E5; background:#fff; }
+.nav-btn { flex:1; padding:10px 4px 8px; display:flex; flex-direction:column; align-items:center; gap:2px; font-size:9.5px; color:#888; font-weight:600; }
+.nav-btn.active { color:#1A3A6B; }
+.nav-btn .nav-icon { font-size:18px; }
+.nav-btn .nav-count { font-size:9px; font-weight:800; color:#1A3A6B; background:#E4EAF2; padding:1px 5px; border-radius:8px; margin-top:1px; }
+.info-strip { background:#fff; padding:10px 14px; border-bottom:1px solid #F0F0F0; font-size:11.5px; color:#444; line-height:1.6; }
+.phone-line { color:#1A3A6B; font-weight:700; }
+.warn-banner { background:#FFF8E1; border-left:3px solid #F5A623; padding:8px 11px; font-size:11px; color:#5D3B00; line-height:1.5; margin:8px; border-radius:5px; }
+
+/* ── Dual top buttons (Screen 2) ─ */
+.dual-btn-wrap { display:flex; gap:8px; padding:10px 14px 10px; background:#fff; border-bottom:1px solid #EBEBEB; }
+.btn-start { flex:3; background:#1A3A6B; color:#fff; font-size:13px; font-weight:800; padding:12px 8px; text-align:center; border-radius:8px; cursor:default; }
+.btn-submit-green { flex:2; background:#27AE60; color:#fff; font-size:13px; font-weight:800; padding:12px 8px; text-align:center; border-radius:8px; cursor:default; }
+
+/* ── Progress bar ────── */
+.progress-bar-wrap { background:#fff; padding:9px 14px; border-bottom:1px solid #EBEBEB; }
+.progress-label { display:flex; justify-content:space-between; font-size:10.5px; font-weight:700; color:#444; margin-bottom:5px; }
+.progress-track { background:#E4EAF2; border-radius:6px; height:7px; overflow:hidden; }
+.progress-fill { background:#1A3A6B; height:100%; border-radius:6px; width:38%; }
+
+/* ── SMS ─────────────── */
+.sms-time { font-size:10px; color:#999; text-align:center; margin:10px 0 6px; }
+.sms-bubble { background:#E9E9EB; border-radius:16px 16px 16px 4px; padding:10px 13px; font-size:11.5px; color:#111; line-height:1.65; margin:0 12px 6px; max-width:92%; }
+.sms-cta { display:inline-block; background:#1A3A6B; color:#fff; font-size:11.5px; font-weight:700; padding:6px 14px; border-radius:8px; margin:4px 0; }
+.sms-expiry { font-size:10.5px; color:#888; font-style:italic; margin-top:3px; }
+
+/* ── Picker ──────────── */
+.picker-header { background:#1A3A6B; color:#fff; padding:12px 14px 10px; }
+.picker-header-title { font-size:14px; font-weight:800; margin-bottom:2px; }
+.picker-header-sub { font-size:11px; opacity:.8; }
+.chip-grid { display:flex; flex-wrap:wrap; gap:9px; padding:14px; background:#F5F7FA; justify-content:center; }
+.chip { padding:10px 16px; border-radius:22px; font-size:12.5px; font-weight:600; border:1.5px solid #D0D8E4; background:#fff; color:#1A1A1A; cursor:default; }
+.chip.selected { background:#1A3A6B; color:#fff; border-color:#1A3A6B; }
+.chip.done { background:#EAF7EE; color:#27AE60; border-color:#27AE60; }
+.chip.done::after { content:' ✓'; }
+.chip-note { font-size:10.5px; color:#888; text-align:center; padding:0 14px 10px; font-style:italic; }
+.picker-section-label { background:#E4EAF2; padding:5px 14px; font-size:10.5px; font-weight:800; color:#1A3A6B; letter-spacing:.5px; text-transform:uppercase; }
+
+/* ── Submit modal overlay ─ */
+.modal-overlay { position:absolute; inset:0; background:rgba(0,0,0,.45); display:flex; align-items:center; justify-content:center; padding:16px; z-index:10; }
+.modal-box { background:#fff; border-radius:16px; padding:20px 18px 16px; width:100%; box-shadow:0 8px 32px rgba(0,0,0,.25); }
+.modal-icon { font-size:32px; text-align:center; margin-bottom:8px; }
+.modal-title { font-size:15px; font-weight:800; color:#111; text-align:center; margin-bottom:6px; }
+.modal-body { font-size:11.5px; color:#444; line-height:1.6; margin-bottom:14px; }
+.modal-list { padding-left:14px; margin-top:6px; }
+.modal-list li { list-style:disc; margin-bottom:3px; font-size:11.5px; color:#333; }
+.modal-btn-primary { display:block; width:100%; background:#1A3A6B; color:#fff; font-size:13px; font-weight:800; padding:12px; text-align:center; border-radius:10px; margin-bottom:8px; }
+.modal-btn-secondary { display:block; width:100%; background:#F5F5F5; color:#555; font-size:12px; font-weight:700; padding:10px; text-align:center; border-radius:10px; border:1px solid #DDD; }
+
+/* ── Open Questions ──── */
+.oq-wrap { width:320px; margin-top:10px; background:#FFFBF0; border:1px solid #F0C060; border-radius:8px; padding:10px 12px; font-size:11px; line-height:1.65; color:#4A3000; }
+.oq-title { font-weight:800; font-size:11.5px; color:#7A3500; margin-bottom:5px; }
+.oq-item { padding-left:4px; margin-bottom:3px; }
+.oq-item::before { content:'? '; font-weight:800; color:#E67E22; }
+
+/* ── Editable ────────── */
+[contenteditable="true"] { outline: none; border-radius: 3px; transition: background 0.15s; }
+body.edit-on [contenteditable="true"] { background: rgba(255,240,100,.35); cursor: text; border-bottom: 1.5px dashed #E67E22; }
+body.edit-on [contenteditable="true"]:focus { background: rgba(255,240,100,.7); border-bottom: 1.5px solid #E67E22; }
+</style>
+</head>
+<body>
+
+<!-- ── EDIT BANNER ──────────────────────────────────────────────── -->
+<div class="edit-banner">
+  <strong>✏ Edit Mode:</strong> Toggle to click any title or description and edit text directly in the browser.
+  <button class="edit-toggle" onclick="document.body.classList.toggle('edit-on');this.textContent=document.body.classList.contains('edit-on')?'🔒 Lock Text':'✏ Enable Editing'">✏ Enable Editing</button>
+</div>
+
+<div class="page-header">
+  <h1>ProxyPics PCR Template — Unlock Technologies</h1>
+  <p>v4 · April 16, 2026</p>
+</div>
+
+<div class="screen-grid">
+
+<!-- ══ 1. SMS ════════════════════════════════════════════════════ -->
+<div class="phone-wrap">
+  <div class="screen-label">1 · SMS to Homeowner</div>
+  <div class="phone">
+    <div class="app-bar">
+      <div class="back">‹</div>
+      <div class="app-logo"><div class="logo-u">U</div><span class="logo-text">unlock<span class="logo-dot">.</span></span></div>
+      <div class="help-btn">?</div>
+    </div>
+    <div class="screen-body" style="background:#fff; padding-bottom:16px;">
+      <div class="sms-time">Today · 9:04 AM</div>
+      <div class="sms-bubble">
+        <strong>Hi <span contenteditable="true">[First Name]</span>,</strong><br><br>
+        <span contenteditable="true">Unlock Technologies has requested property photos for your home at <strong>[property address]</strong>.</span><br><br>
+        <span contenteditable="true">To complete your inspection, please take the required interior and exterior photos using the link below. The process typically takes 15–20 minutes.</span><br><br>
+        <span style="color:#0B84FE; text-decoration:underline; font-weight:500; cursor:pointer;" contenteditable="true">unlock.com/photos/your-inspection</span><br><br>
+        <div class="sms-expiry" contenteditable="true">This link will expire in 3 days.</div><br>
+        <span contenteditable="true">Questions? Call ProxyPics at <strong>(312) 799-7427</strong> and let them know you're completing an order for Unlock.</span>
+      </div>
+      <div class="sms-time">Delivered</div>
+    </div>
+  </div>
+  <div class="oq-wrap">
+    <div class="oq-title">Open Questions</div>
+    <div class="oq-item">Can ProxyPics inject the homeowner's first name into the SMS template dynamically?</div>
+    <div class="oq-item">Can ProxyPics configure a vanity URL (vs. raw API link)?</div>
+  </div>
+</div>
+
+<!-- ══ 2. MAIN TASK SCREEN ══════════════════════════════════════ -->
+<div class="phone-wrap">
+  <div class="screen-label">2 · Main Task Screen</div>
+  <div class="phone">
+    <div class="app-bar">
+      <div class="back">‹</div>
+      <div class="app-logo"><div class="logo-u">U</div><span class="logo-text">unlock<span class="logo-dot">.</span></span></div>
+      <div class="help-btn">?</div>
+    </div>
+    <div class="screen-body">
+      <div class="addr-bar">131-02B 40th Rd #201, Flushing, NY 11354, USA</div>
+
+      <!-- Progress bar -->
+      <div class="progress-bar-wrap">
+        <div class="progress-label">
+          <span>📷 7 of 18+ photos submitted</span>
+          <span style="color:#1A3A6B; font-weight:800;">38%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill"></div></div>
+      </div>
+
+      <div class="warn-banner" contenteditable="true">Please confirm you're at the correct property address before taking photos.</div>
+
+      <!-- Dual top buttons -->
+      <div class="dual-btn-wrap">
+        <div class="btn-start" contenteditable="true">📷 Start Taking Photos</div>
+        <div class="btn-submit-green" contenteditable="true">✅ Submit</div>
+      </div>
+
+      <!-- Required overview -->
+      <div class="sec-div">Required Photos</div>
+      <div class="instr-block">
+        <div class="instr-row">
+          <div class="instr-icon">🏙</div>
+          <div>
+            <div class="instr-title" contenteditable="true">Street Scene</div>
+            <ul class="instr-list"><li contenteditable="true">2 photos — one in each direction down the street</li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="instr-block">
+        <div class="instr-row">
+          <div class="instr-icon">🔢</div>
+          <div>
+            <div class="instr-title" contenteditable="true">Address Verification</div>
+            <ul class="instr-list"><li contenteditable="true">1 photo — house number clearly visible</li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="instr-block">
+        <div class="instr-row">
+          <div class="instr-icon">🏡</div>
+          <div>
+            <div class="instr-title" contenteditable="true">Exterior Photos</div>
+            <ul class="instr-list"><li contenteditable="true">Front of House · Front Left Corner · Front Right Corner · Rear of House</li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="instr-block">
+        <div class="instr-row">
+          <div class="instr-icon">🛋</div>
+          <div>
+            <div class="instr-title" contenteditable="true">Interior Photos</div>
+            <ul class="instr-list">
+              <li contenteditable="true">Kitchen · Living Room · All Bedroom(s) · All Bathroom(s) · Hallways</li>
+              <li contenteditable="true">2 photos of each room</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-div opt">Other Features <span class="badge opt">If Applicable</span></div>
+      <div class="instr-block">
+        <div class="instr-row">
+          <div class="instr-icon">🏗</div>
+          <div>
+            <div class="instr-title" contenteditable="true">Additional Structures &amp; Features</div>
+            <ul class="instr-list">
+              <li contenteditable="true">Interior: Basement · Stairs · Other living areas</li>
+              <li contenteditable="true">Exterior: Garage · Carport · ADU / In-Law Unit · Pool</li>
+              <li contenteditable="true">2 photos each if present</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-nav">
+        <div class="nav-btn active">
+          <div class="nav-icon">📷</div>
+          <div>Photos</div>
+          <div class="nav-count">7 / 18+</div>
+        </div>
+        <div class="nav-btn">
+          <div class="nav-icon">💬</div>
+          <div>Additional Comments</div>
+        </div>
+        <div class="nav-btn">
+          <div class="nav-icon">🙋</div>
+          <div>Chat with us</div>
+        </div>
+      </div>
+
+      <div class="info-strip" style="border-top:1px solid #EBEBEB;">
+        <div contenteditable="true">Need help? Call ProxyPics Help Line at <span class="phone-line">(312) 799-7427</span>. Mention you're completing an order for Unlock and provide the property address.</div>
+        <div style="font-size:11px; color:#888; margin-top:3px;">⏱ Time to complete: 82h 52m</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ 3. PHOTO CHECKLIST ════════════════════════════════════════ -->
+<div class="phone-wrap">
+  <div class="screen-label">3 · Photo Checklist<br><span style="color:#888;font-weight:400;text-transform:none;font-size:10px;">All sections on one scroll · Tap any card to take or retake</span></div>
+  <div class="phone">
+    <div class="app-bar">
+      <div class="back">‹</div>
+      <div class="app-logo"><div class="logo-u">U</div><span class="logo-text">unlock<span class="logo-dot">.</span></span></div>
+      <div class="help-btn">?</div>
+    </div>
+    <div class="screen-body">
+
+      <div class="addr-bar">131-02B 40th Rd #201, Flushing, NY 11354, USA</div>
+
+      <!-- Progress bar -->
+      <div class="progress-bar-wrap">
+        <div class="progress-label">
+          <span>📷 7 of 18+ photos submitted</span>
+          <span style="color:#1A3A6B; font-weight:800;">38%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill"></div></div>
+      </div>
+
+      <!-- ─ STREET SCENE ─ -->
+      <div class="sec-div">🏙 Street Scene <span class="badge">Required</span></div>
+      <div class="photo-card">
+        <div class="thumb done"><div class="thumb-icon">✓</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">Street Photo Right</div>
+          <div class="photo-desc" contenteditable="true">Safely stand in the center of the street and take a photo looking down the street. 🚫 NOT of your house.</div>
+          <span class="tag tag-req">Required · 1 photo</span>
+          <div class="status-ok">GREAT PHOTO!</div>
+        </div>
+        <div class="circle done">✓</div>
+      </div>
+      <div class="photo-card">
+        <div class="thumb done"><div class="thumb-icon">✓</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">Street Photo Left</div>
+          <div class="photo-desc" contenteditable="true">Safely stand in the center of the street and take a photo looking down the street. 🚫 NOT of your house.</div>
+          <span class="tag tag-req">Required · 1 photo</span>
+          <div class="status-ok">GREAT PHOTO!</div>
+        </div>
+        <div class="circle done">✓</div>
+      </div>
+
+      <!-- ─ ADDRESS ─ -->
+      <div class="sec-div">🔢 Address Verification <span class="badge">Required</span></div>
+      <div class="photo-card">
+        <div class="thumb done"><div class="thumb-icon">✓</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">Subject's Address</div>
+          <div class="photo-desc" contenteditable="true">Take a zoomed-in photo of the property address. House number must be clearly visible — on the house, door, mailbox, or street curb. If no house numbers exist, photograph the street sign.</div>
+          <span class="tag tag-req">Required · 1 photo</span>
+          <div class="status-ok">GREAT PHOTO!</div>
+        </div>
+        <div class="circle done">✓</div>
+      </div>
+
+      <!-- ─ EXTERIOR ─ -->
+      <div class="sec-div">🏡 Exterior Photos <span class="badge">Required</span></div>
+      <div class="photo-card">
+        <div class="thumb done"><div class="thumb-icon">✓</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">Front of House</div>
+          <div class="photo-desc" contenteditable="true">Capture the full front facade of the property. Limit people, animals, fingers, portions of your car, and window glare.</div>
+          <span class="tag tag-req">Required · 1–2 photos</span>
+          <div class="status-ok">GREAT PHOTO!</div>
+        </div>
+        <div class="circle done">✓</div>
+      </div>
+      <div class="photo-card">
+        <div class="thumb done"><div class="thumb-icon">✓</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">Front Left Corner</div>
+          <div class="photo-desc" contenteditable="true">Take a photo at an angle so both the front and side depth of the house are visible. Limit people, animals, fingers, and window glare.</div>
+          <span class="tag tag-req">Required · 1 photo</span>
+          <div class="status-ok">GREAT PHOTO!</div>
+        </div>
+        <div class="circle done">✓</div>
+      </div>
+      <div class="photo-card">
+        <div class="thumb"><div class="thumb-icon">📷</div><div class="thumb-label">Tap</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">Front Right Corner</div>
+          <div class="photo-desc" contenteditable="true">Take a photo at an angle so both the front and side depth of the house are visible. Limit people, animals, fingers, and window glare.</div>
+          <span class="tag tag-req">Required · 1 photo</span>
+          <div class="status-retake" contenteditable="true">Please retake this photo to match the description above. If you're sure it's right, go ahead and proceed.</div>
+        </div>
+        <div class="circle"></div>
+      </div>
+      <div class="photo-card">
+        <div class="thumb"><div class="thumb-icon">📷</div><div class="thumb-label">Tap</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">Rear of House</div>
+          <div class="photo-desc" contenteditable="true">Capture the full rear of the property. Limit people, animals, fingers, portions of your car, and window glare.</div>
+          <span class="tag tag-req">Required · 1–2 photos</span>
+        </div>
+        <div class="circle"></div>
+      </div>
+
+      <!-- ─ INTERIOR ─ -->
+      <div class="sec-div">🛋 Interior Photos <span class="badge">Required · 2 per room</span></div>
+      <div class="photo-card">
+        <div class="thumb"><div class="thumb-icon">📷</div><div class="thumb-label">Tap</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">Kitchen</div>
+          <div class="photo-desc" contenteditable="true">Take photos of the full kitchen including countertops, appliances, and cabinets.</div>
+          <span class="tag tag-req">Required · 2 photos</span>
+        </div>
+        <div class="circle"></div>
+      </div>
+      <div class="photo-card">
+        <div class="thumb"><div class="thumb-icon">📷</div><div class="thumb-label">Tap</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">Living Room</div>
+          <div class="photo-desc" contenteditable="true">Capture the full living room. If a dining room or family room is attached, include it.</div>
+          <span class="tag tag-req">Required · 2 photos</span>
+        </div>
+        <div class="circle"></div>
+      </div>
+      <div class="tap-card">
+        <div class="tap-icon-box"><div style="font-size:22px;color:#1A3A6B">🏠</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">All Bedroom(s)</div>
+          <div class="photo-desc" contenteditable="true">Tap to photograph a bedroom.</div>
+          <span class="tag tag-req">Required · 2 photos per bedroom</span><br>
+          <span class="room-done-chip">Bedroom 1 ✓</span>
+          <span class="room-done-chip">Bedroom 2 ✓</span>
+          <div class="tap-cta">▶ Tap to add Bedroom 3 →</div>
+        </div>
+        <div class="circle"></div>
+      </div>
+      <div class="tap-card">
+        <div class="tap-icon-box"><div style="font-size:22px;color:#1A3A6B">🚿</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">All Bathroom(s)</div>
+          <div class="photo-desc" contenteditable="true">Tap to photograph a bathroom.</div>
+          <span class="tag tag-req">Required · 2 photos per bathroom</span>
+          <div class="tap-cta">▶ Tap to add Bathroom 1 →</div>
+        </div>
+        <div class="circle"></div>
+      </div>
+      <div class="photo-card">
+        <div class="thumb"><div class="thumb-icon">📷</div><div class="thumb-label">Tap</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">Hallways</div>
+          <div class="photo-desc" contenteditable="true">Capture all main hallways showing floor and wall condition.</div>
+          <span class="tag tag-req">Required · 2 photos</span>
+        </div>
+        <div class="circle"></div>
+      </div>
+
+      <!-- ─ OTHER FEATURES ─ -->
+      <div class="sec-div opt">🏗 Other Features <span class="badge opt">If Applicable</span></div>
+      <div style="padding:8px 12px; background:#fff; font-size:11px; color:#555; line-height:1.55; border-bottom:1px solid #EBEBEB;" contenteditable="true">
+        If any of the features below apply to your property, 2 photos are required. Only photograph what applies.
+      </div>
+
+      <div class="sec-div opt" style="font-size:10px; padding:4px 14px;">Interior Features</div>
+      <div class="tap-card">
+        <div class="tap-icon-box"><div style="font-size:22px;color:#1A3A6B">🏠</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">Additional Interior Features</div>
+          <div class="photo-desc" contenteditable="true">Tap to photograph an interior feature. Select its label (Basement, Stairs, Den, etc.), take 2 photos, then return here to add more.</div>
+          <span class="tag tag-opt">If applicable · 2 photos each</span><br>
+          <span class="room-done-chip">Basement ✓</span>
+          <div class="tap-cta">▶ Tap to add more →</div>
+        </div>
+        <div class="circle"></div>
+      </div>
+
+      <div class="sec-div opt" style="font-size:10px; padding:4px 14px;">Exterior Features</div>
+      <div class="tap-card">
+        <div class="tap-icon-box"><div style="font-size:22px;color:#1A3A6B">🏗</div></div>
+        <div class="photo-info">
+          <div class="photo-title" contenteditable="true">Additional Exterior Features</div>
+          <div class="photo-desc" contenteditable="true">Tap to photograph an exterior feature. Select its label (Garage, ADU, Pool, etc.), take 2 photos, then return here to add more.</div>
+          <span class="tag tag-opt">If applicable · 2 photos each</span>
+          <div class="tap-cta">▶ Tap to add →</div>
+        </div>
+        <div class="circle"></div>
+      </div>
+
+      <!-- Save and go back (no submit on this screen) -->
+      <div class="save-back">‹ Save and go back to Main Screen</div>
+
+    </div>
+  </div>
+  <div class="oq-wrap">
+    <div class="oq-title">Open Questions</div>
+    <div class="oq-item">Can ProxyPics serve all photo sections as one long scrollable screen (vs. individual section routes)?</div>
+    <div class="oq-item">Max 6 bedrooms / 6 bathrooms per order — is this the right cap?</div>
+    <div class="oq-item">Can ProxyPics surface the returning-visit chip state (green = already photographed)?</div>
+  </div>
+</div>
+
+<!-- ══ 4a. BEDROOM PICKER — FIRST VISIT ═══════════════════════════ -->
+<div class="phone-wrap">
+  <div class="screen-label">4a · Bedroom Picker — First Visit<br><span style="color:#888;font-weight:400;text-transform:none;font-size:10px;">Homeowner taps "All Bedroom(s)" for the first time. No rooms done yet.</span></div>
+  <div class="phone">
+    <div class="app-bar">
+      <div class="back">‹</div>
+      <div class="app-logo"><div class="logo-u">U</div><span class="logo-text">unlock<span class="logo-dot">.</span></span></div>
+      <div class="help-btn">?</div>
+    </div>
+    <div class="screen-body">
+      <div class="picker-header">
+        <div class="picker-header-title" contenteditable="true">Which bedroom are you photographing?</div>
+        <div class="picker-header-sub" contenteditable="true">Select one, take 2 photos of that room, then come back here for the next bedroom.</div>
+      </div>
+      <div class="chip-grid">
+        <div class="chip selected">Bedroom 1</div>
+        <div class="chip">Bedroom 2</div>
+        <div class="chip">Bedroom 3</div>
+        <div class="chip">Bedroom 4</div>
+        <div class="chip">Bedroom 5</div>
+        <div class="chip">Bedroom 6</div>
+      </div>
+      <div class="chip-note">Tap a bedroom to begin</div>
+
+      <div style="background:#fff; padding:10px 14px; border-top:1px solid #E4EAF2;">
+        <div class="photo-title" style="margin-bottom:4px;" contenteditable="true">Bedroom 1</div>
+        <div class="photo-desc" contenteditable="true">Photograph the full room. Capture walls, flooring, windows, and ceiling condition.</div>
+        <span class="tag tag-req" style="display:inline-block;margin-top:6px;">Required · 2 photos</span>
+      </div>
+
+      <div class="save-back">‹ Return to Photo Checklist</div>
+    </div>
+  </div>
+  <div class="oq-wrap">
+    <div class="oq-title">Open Questions</div>
+    <div class="oq-item">Can ProxyPics configure the single-select-per-visit room picker flow via their API / template system?</div>
+  </div>
+</div>
+
+<!-- ══ 4b. BEDROOM PICKER — RETURN VISIT ══════════════════════════ -->
+<div class="phone-wrap">
+  <div class="screen-label">4b · Bedroom Picker — Return Visit<br><span style="color:#888;font-weight:400;text-transform:none;font-size:10px;">Homeowner taps "All Bedroom(s)" again after finishing Bedroom 1. Green = already done.</span></div>
+  <div class="phone">
+    <div class="app-bar">
+      <div class="back">‹</div>
+      <div class="app-logo"><div class="logo-u">U</div><span class="logo-text">unlock<span class="logo-dot">.</span></span></div>
+      <div class="help-btn">?</div>
+    </div>
+    <div class="screen-body">
+      <div class="picker-header">
+        <div class="picker-header-title" contenteditable="true">Which bedroom are you photographing?</div>
+        <div class="picker-header-sub" contenteditable="true">Select one, take 2 photos of that room, then come back here for the next bedroom.</div>
+      </div>
+      <div class="chip-grid">
+        <div class="chip done">Bedroom 1</div>
+        <div class="chip selected">Bedroom 2</div>
+        <div class="chip">Bedroom 3</div>
+        <div class="chip">Bedroom 4</div>
+        <div class="chip">Bedroom 5</div>
+        <div class="chip">Bedroom 6</div>
+      </div>
+      <div class="chip-note">Bedroom 1 ✓ done · Green chips = already photographed</div>
+
+      <div style="background:#fff; padding:10px 14px; border-top:1px solid #E4EAF2;">
+        <div class="photo-title" style="margin-bottom:4px;" contenteditable="true">Bedroom 2</div>
+        <div class="photo-desc" contenteditable="true">Photograph the full room. Capture walls, flooring, windows, and ceiling condition.</div>
+        <span class="tag tag-req" style="display:inline-block;margin-top:6px;">Required · 2 photos</span>
+      </div>
+
+      <div class="save-back">‹ Return to Photo Checklist</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 5. INTERIOR FEATURES PICKER ══════════════════════════════ -->
+<div class="phone-wrap">
+  <div class="screen-label">5 · Interior Features Picker<br><span style="color:#888;font-weight:400;text-transform:none;font-size:10px;">Tap "Additional Interior Features" on Screen 3 · Same pattern applies to Bathrooms</span></div>
+  <div class="phone">
+    <div class="app-bar">
+      <div class="back">‹</div>
+      <div class="app-logo"><div class="logo-u">U</div><span class="logo-text">unlock<span class="logo-dot">.</span></span></div>
+      <div class="help-btn">?</div>
+    </div>
+    <div class="screen-body">
+      <div class="picker-header">
+        <div class="picker-header-title" contenteditable="true">Which interior feature are you photographing?</div>
+        <div class="picker-header-sub" contenteditable="true">Select one — take 2 photos, then return to your checklist for the next.</div>
+      </div>
+      <div class="chip-grid">
+        <div class="chip done">Basement</div>
+        <div class="chip selected">Stairs</div>
+        <div class="chip">Den</div>
+        <div class="chip">Sun Room</div>
+        <div class="chip">Family Room</div>
+        <div class="chip">Dining Room</div>
+        <div class="chip">Converted Garage</div>
+        <div class="chip">Loft</div>
+        <div class="chip">Office</div>
+        <div class="chip">Laundry Room</div>
+        <div class="chip">Foyer / Entry</div>
+        <div class="chip">Other</div>
+      </div>
+      <div class="chip-note">Basement completed ✓ · Select the next feature</div>
+
+      <div style="background:#fff; padding:10px 14px; border-top:1px solid #E4EAF2;">
+        <div class="photo-title" style="margin-bottom:4px;" contenteditable="true">Stairs</div>
+        <div class="photo-desc" contenteditable="true">Photograph all stairways. Include carpet or flooring condition on treads and landings.</div>
+        <span class="tag tag-opt" style="display:inline-block;margin-top:6px;">If applicable · 2 photos</span>
+      </div>
+
+      <div class="save-back">‹ Return to Photo Checklist</div>
+    </div>
+  </div>
+  <div class="oq-wrap">
+    <div class="oq-title">Open Questions</div>
+    <div class="oq-item">Final label list to confirm — which legacy labels (Workshop, Butler's Pantry, Library, Media Room, Utility Room) should be included or excluded?</div>
+  </div>
+</div>
+
+<!-- ══ 6. EXTERIOR FEATURES PICKER ══════════════════════════════ -->
+<div class="phone-wrap">
+  <div class="screen-label">6 · Exterior Features Picker<br><span style="color:#888;font-weight:400;text-transform:none;font-size:10px;">Tap "Additional Exterior Features" on Screen 3 to reach this picker</span></div>
+  <div class="phone">
+    <div class="app-bar">
+      <div class="back">‹</div>
+      <div class="app-logo"><div class="logo-u">U</div><span class="logo-text">unlock<span class="logo-dot">.</span></span></div>
+      <div class="help-btn">?</div>
+    </div>
+    <div class="screen-body">
+      <div class="picker-header">
+        <div class="picker-header-title" contenteditable="true">Which exterior feature are you photographing?</div>
+        <div class="picker-header-sub" contenteditable="true">Select one — take 2 photos, then return to your checklist for the next.</div>
+      </div>
+      <div class="chip-grid">
+        <div class="chip selected">Attached Garage</div>
+        <div class="chip">Detached Garage</div>
+        <div class="chip">Carport</div>
+        <div class="chip">ADU / In-Law Unit</div>
+        <div class="chip">Pool</div>
+        <div class="chip">Pool Spa</div>
+        <div class="chip">Other</div>
+      </div>
+
+      <div style="background:#fff; padding:10px 14px; border-top:1px solid #E4EAF2;">
+        <div class="photo-title" style="margin-bottom:4px;" contenteditable="true">Attached Garage</div>
+        <div class="photo-desc" contenteditable="true">Photograph the exterior of the attached garage, including the garage door.</div>
+        <span class="tag tag-opt" style="display:inline-block;margin-top:6px;">If applicable · 2 photos</span>
+      </div>
+
+      <div class="save-back">‹ Return to Photo Checklist</div>
+    </div>
+  </div>
+  <div class="oq-wrap">
+    <div class="oq-title">Open Questions</div>
+    <div class="oq-item">Deck, Outdoor Kitchen, Patio, Large Yard Features (from original ProxyPics template) — include or exclude from this picker?</div>
+  </div>
+</div>
+
+<!-- ══ 7. SUBMIT WARNING POPUP ═══════════════════════════════════ -->
+<div class="phone-wrap">
+  <div class="screen-label">7 · Submit Warning — Incomplete Photos<br><span style="color:#888;font-weight:400;text-transform:none;font-size:10px;">Shown when homeowner taps Submit before all required photos are done</span></div>
+  <div class="phone">
+    <div class="app-bar">
+      <div class="back">‹</div>
+      <div class="app-logo"><div class="logo-u">U</div><span class="logo-text">unlock<span class="logo-dot">.</span></span></div>
+      <div class="help-btn">?</div>
+    </div>
+    <div class="screen-body" style="position:relative;">
+
+      <!-- Dimmed background (main screen visible behind modal) -->
+      <div style="opacity:0.35; pointer-events:none;">
+        <div class="addr-bar">131-02B 40th Rd #201, Flushing, NY 11354, USA</div>
+        <div class="progress-bar-wrap">
+          <div class="progress-label"><span>📷 7 of 18+ photos submitted</span><span>38%</span></div>
+          <div class="progress-track"><div class="progress-fill"></div></div>
+        </div>
+        <div class="warn-banner">Please confirm you're at the correct property address before taking photos.</div>
+        <div class="dual-btn-wrap">
+          <div class="btn-start">📷 Start Taking Photos</div>
+          <div class="btn-submit-green">✅ Submit</div>
+        </div>
+        <div class="sec-div">Required Photos</div>
+        <div class="instr-block" style="height:44px;"></div>
+        <div class="instr-block" style="height:44px;"></div>
+      </div>
+
+      <!-- Modal popup -->
+      <div class="modal-overlay">
+        <div class="modal-box">
+          <div class="modal-icon">⚠️</div>
+          <div class="modal-title" contenteditable="true">Some required photos are missing</div>
+          <div class="modal-body">
+            <span contenteditable="true">Please complete the following before submitting:</span>
+            <ul class="modal-list">
+              <li contenteditable="true">Front Right Corner</li>
+              <li contenteditable="true">Rear of House</li>
+              <li contenteditable="true">Kitchen</li>
+              <li contenteditable="true">Living Room</li>
+              <li contenteditable="true">All Bathroom(s)</li>
+              <li contenteditable="true">Hallways</li>
+            </ul>
+          </div>
+          <div class="modal-btn-primary" contenteditable="true">← Keep Taking Photos</div>
+          <div class="modal-btn-secondary" contenteditable="true">Submit Anyway</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div><!-- end screen-grid -->
+
+<div style="text-align:center;margin-top:40px;font-size:11.5px;color:#888;font-style:italic;line-height:1.7;padding:0 16px;">
+  Unlock Technologies · ProxyPics PCR Template · v4 · April 16, 2026<br>
+  Next step: send to ProxyPics for API / template feasibility confirmation.
+</div>
+
+<script>
+document.querySelectorAll('[contenteditable]').forEach(el => {
+  el.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !this.dataset.multiline) e.preventDefault();
+  });
+});
+</script>
+</body>
+</html>
