@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ProxyPics — Unlock Template (Editable)</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  background: #e5e5ea;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+/* ── PHONE SHELL ── */
+.phone {
+  width: 390px;
+  background: #fff;
+  border-radius: 44px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,0,0,0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 844px;
+  min-height: 844px;
+}
+
+/* ── STATUS BAR ── */
+.status-bar {
+  background: #fff;
+  padding: 14px 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+.status-time { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; }
+.status-icons { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #000; }
+.status-icons svg { width: 16px; height: 12px; }
+
+/* ── NAV BAR ── */
+.nav-bar {
+  background: #fff;
+  padding: 8px 16px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0.5px solid #c6c6c8;
+  flex-shrink: 0;
+}
+.nav-back {
+  color: #8e8e93;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 60px;
+}
+.nav-back svg { width: 10px; height: 17px; }
+.nav-back span { font-size: 16px; color: #8e8e93; }
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-icon {
+  width: 36px;
+  height: 36px;
+}
+.logo-text {
+  font-size: 26px;
+  font-weight: 800;
+  color: #1a3fd4;
+  letter-spacing: -1px;
+}
+.nav-help {
+  width: 32px; height: 32px;
+  border: 1.5px solid #c6c6c8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8e8e93;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* ── SCREEN CONTENT ── */
+.screen { display: none; flex: 1; overflow-y: auto; overflow-x: hidden; }
+.screen.active { display: flex; flex-direction: column; }
+
+/* ── EDITABLE ── */
+[contenteditable] {
+  outline: none;
+  border-radius: 3px;
+  transition: background 0.15s;
+  display: inline;
+}
+[contenteditable]:hover { background: rgba(255, 200, 0, 0.15); }
+[contenteditable]:focus { background: rgba(255, 200, 0, 0.25); outline: none; }
+
+/* ── EDIT HINT ── */
+.edit-hint {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* ════════════════════════════════
+   SCREEN 1 — ORDER LIST
+════════════════════════════════ */
+.tabs-bar {
+  display: flex;
+  border-bottom: 0.5px solid #c6c6c8;
+  flex-shrink: 0;
+}
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 15px;
+  color: #8e8e93;
+  position: relative;
+}
+.tab-item.active {
+  color: #3333ff;
+  font-weight: 500;
+}
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 10%; right: 10%;
+  height: 2px;
+  background: #3333ff;
+  border-radius: 2px;
+}
+
+.order-card {
+  padding: 16px 20px;
+  position: relative;
+}
+.time-badge {
+  position: absolute;
+  top: 16px; right: 20px;
+  background: #1c1c1e;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+.order-address-bold {
+  font-size: 17px;
+  font-weight: 700;
+  color: #000;
+  line-height: 1.3;
+  margin-bottom: 4px;
+  padding-right: 140px;
+}
+.order-address-sub {
+  font-size: 14px;
+  color: #8e8e93;
+  margin-bottom: 10px;
+}
+.daylight-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  color: #000;
+}
+
+/* ════════════════════════════════
+   SCREEN 2 — ORDER DETAIL
+════════════════════════════════ */
+.detail-address {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
+  padding: 16px 20px 12px;
+  color: #000;
+}
+.section-label {
+  font-size: 17px;
+  font-weight: 700;
+  padding: 0 20px 8px;
+  color: #000;
+}
+.doc-card {
+  margin: 0 20px 16px;
+  border: 1px solid #c6c6c8;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+}
+.doc-thumb {
+  width: 56px; height: 44px;
+  background: #e5e5ea;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.doc-name { font-size: 15px; color: #3333ff; font-weight: 400; }
+.doc-type { font-size: 13px; color: #8e8e93; }
+.divider { height: 0.5px; background: #c6c6c8; margin: 4px 0; }
+.instructions-section { padding: 12px 20px; }
+.instructions-header { font-size: 17px; font-weight: 700; margin-bottom: 10px; color: #000; }
+.special-label { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: #000; }
+.special-text { font-size: 15px; color: #000; line-height: 1.5; }
+.req-photos-heading {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 24px; font-weight: 800; color: #000;
+  padding: 12px 20px 8px;
+}
+.req-section { padding: 8px 20px 12px; }
+.req-section-title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 17px; font-weight: 700; color: #000;
+  margin-bottom: 6px;
+}
+.req-list { list-style: none; padding: 0; }
+.req-list li {
+  font-size: 15px; color: #000;
+  padding: 2px 0 2px 14px;
+  position: relative;
+  line-height: 1.4;
+}
+.req-list li::before {
+  content: '•';
+  position: absolute; left: 2px;
+  color: #000;
+}
+.req-list li b { font-weight: 700; }
+.purpose-section { padding: 12px 20px; }
+.purpose-label { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: #000; }
+.purpose-content { font-size: 15px; color: #000; min-height: 40px; }
+
+.submit-btn {
+  margin: 8px 20px;
+  height: 50px;
+  background: #e5e5ea;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #8e8e93;
+  font-size: 17px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.submit-btn svg { width: 20px; height: 20px; }
+
+/* ════════════════════════════════
+   SCREEN 3 — TASKS PAGE
+════════════════════════════════ */
+.tasks-title {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 14px 20px 10px;
+  flex-shrink: 0;
+}
+.instructions-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  background: #f2f2f7;
+  border-bottom: 0.5px solid #c6c6c8;
+  font-size: 16px;
+  color: #000;
+}
+.instructions-row svg { color: #8e8e93; }
+.address-confirm {
+  padding: 14px 20px;
+  font-size: 15px;
+  color: #ff3b30;
+  line-height: 1.5;
+}
+.reject-warning {
+  padding: 0 20px 14px;
+  font-size: 15px;
+  color: #8e8e93;
+  line-height: 1.5;
+}
+.task-card {
+  margin: 0 16px 10px;
+  background: #f2f2f7;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.task-card-body { flex: 1; min-width: 0; }
+.task-title { font-size: 17px; font-weight: 700; color: #000; margin-bottom: 6px; line-height: 1.3; }
+.task-desc { font-size: 15px; color: #8e8e93; line-height: 1.4; margin-bottom: 8px; }
+.task-count { font-size: 14px; color: #8e8e93; }
+.task-camera {
+  width: 30px; height: 30px;
+  flex-shrink: 0;
+  color: #c6c6c8;
+  margin-top: 4px;
+}
+.task-photo-thumb {
+  width: 72px; height: 72px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #333;
+  overflow: hidden;
+}
+.task-photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+.photo-slot {
+  aspect-ratio: 1;
+  background: #c6c6c8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #8e8e93;
+  position: relative;
+}
+
+/* ── AI RETAKE ── */
+.ai-retake {
+  padding: 10px 16px;
+  font-size: 15px;
+  color: #ff3b30;
+  line-height: 1.5;
+}
+.click-sample {
+  padding: 4px 16px 12px;
+  font-size: 15px;
+  color: #34c759;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.check-circle {
+  width: 28px; height: 28px;
+  border: 2px solid #3333ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3333ff;
+}
+
+/* ── SAVE BTN ── */
+.save-btn {
+  margin: 16px 16px 20px;
+  height: 52px;
+  background: #3333ff;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* ════════════════════════════════
+   SCREEN 4 — INTERIOR/UNIQUE FEATURES
+════════════════════════════════ */
+.interior-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 14px 20px 12px;
+}
+.tap-card {
+  margin: 0 16px 12px;
+  border: 1px solid #c6c6c8;
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+}
+.tap-plus {
+  width: 32px; height: 32px;
+  border: 2px solid #3333ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3333ff;
+  font-size: 20px;
+  font-weight: 300;
+  margin: 0 auto 8px;
+}
+.tap-title { font-size: 15px; color: #000; font-weight: 400; margin-bottom: 4px; }
+.tap-desc { font-size: 14px; color: #8e8e93; line-height: 1.4; }
+.room-section {
+  margin: 0 16px 12px;
+  background: #f2f2f7;
+  border-radius: 14px;
+  padding: 14px;
+}
+.room-name { font-size: 20px; font-weight: 700; color: #000; margin-bottom: 10px; }
+.room-photos { display: flex; gap: 10px; }
+.room-photo {
+  width: 100px; height: 100px;
+  border-radius: 10px;
+  background: #333;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 30px;
+}
+.room-check {
+  position: absolute; bottom: 5px; right: 5px;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 13px;
+}
+.add-photo-btn {
+  width: 100px; height: 100px;
+  border-radius: 10px;
+  border: 1px solid #c6c6c8;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #8e8e93;
+}
+.add-plus {
+  width: 28px; height: 28px;
+  border: 2px solid #3333ff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #3333ff; font-size: 18px; font-weight: 300;
+}
+
+/* ════════════════════════════════
+   SCREEN 5 — ROOM PICKER
+════════════════════════════════ */
+.room-picker-title {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  padding: 20px 24px 16px;
+  line-height: 1.3;
+}
+.room-grid {
+  padding: 0 16px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.room-btn {
+  border: 1px solid #c6c6c8;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 15px;
+  color: #000;
+  background: #fff;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.room-btn-full {
+  width: 100%;
+  border: 1px solid #c6c6c8;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: #000;
+  text-align: center;
+  background: #fff;
+}
+
+/* ── BOTTOM NAV BAR ── */
+.bottom-bar {
+  background: #f2f2f7;
+  border-top: 0.5px solid #c6c6c8;
+  padding: 10px 20px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.bottom-url {
+  font-size: 13px;
+  color: #8e8e93;
+  text-align: center;
+  flex: 1;
+}
+.bottom-icon { color: #3c3c43; }
+
+/* ── QUESTIONS SECTION ── */
+.questions-title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 22px; font-weight: 800; color: #000;
+  padding: 4px 20px 10px;
+}
+.questions-body { padding: 0 20px; font-size: 15px; line-height: 1.6; color: #000; }
+.questions-list { list-style: none; padding: 0; margin: 6px 0; }
+.questions-list li {
+  padding: 2px 0 2px 14px;
+  position: relative;
+}
+.questions-list li::before { content: '•'; position: absolute; left: 2px; }
+.phone-row {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 15px; font-weight: 700; color: #000;
+  padding: 10px 20px;
+}
+.phone-num { color: #34c759; font-weight: 400; }
+.on-behalf { padding: 4px 20px 14px; font-size: 15px; color: #000; }
+.on-behalf-label { font-weight: 700; margin-bottom: 2px; }
+.time-complete {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 20px;
+  border-top: 0.5px solid #c6c6c8;
+  border-bottom: 0.5px solid #c6c6c8;
+  font-size: 15px;
+  color: #000;
+}
+.chat-section {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 20px;
+}
+.chat-circle {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: #f2f2f7;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 8px;
+  font-size: 32px;
+}
+.chat-label { font-size: 14px; color: #000; }
+
+/* ── TASK CARDS (bottom area of detail) ── */
+.task-nav-card {
+  margin: 10px 16px;
+  background: #f2f2f7;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.task-nav-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: #3333ff;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: white;
+  font-size: 20px;
+}
+.task-nav-body { flex: 1; }
+.task-nav-title { font-size: 16px; font-weight: 500; color: #000; margin-bottom: 2px; }
+.task-nav-sub { font-size: 14px; color: #8e8e93; }
+
+/* read more */
+.read-more { color: #34c759; font-size: 15px; }
+
+/* ── SCREEN NAVIGATION ── */
+.nav-dots {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 100;
+}
+.nav-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #c6c6c8;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.nav-dot.active { background: #3333ff; }
+
+.screen-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 100;
+}
+.screen-btn {
+  background: #3333ff;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(51,51,255,0.4);
+}
+.screen-btn:hover { background: #2020cc; }
+
+/* special: read more toggle */
+.truncated { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.truncated.expanded { display: block; }
+</style>
+</head>
+<body>
+
+<div class="edit-hint">✏️ Tap any text to edit it</div>
+
+<div class="phone">
+
+  <!-- STATUS BAR -->
+  <div class="status-bar" id="status-bar">
+    <div class="status-time" contenteditable="true">11:48</div>
+    <div class="status-icons">
+      <svg viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#000"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#000"/><rect x="9" y="0" width="3" height="12" rx="1" fill="#000"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#000" opacity="0.3"/></svg>
+      <svg viewBox="0 0 16 12" fill="none"><path d="M8 2.5C10.2 2.5 12.2 3.4 13.6 4.9L15 3.5C13.2 1.6 10.7 0.5 8 0.5C5.3 0.5 2.8 1.6 1 3.5L2.4 4.9C3.8 3.4 5.8 2.5 8 2.5Z" fill="#000"/><path d="M8 5.5C9.5 5.5 10.9 6.1 11.9 7.1L13.3 5.7C11.9 4.4 10 3.5 8 3.5C6 3.5 4.1 4.4 2.7 5.7L4.1 7.1C5.1 6.1 6.5 5.5 8 5.5Z" fill="#000"/><circle cx="8" cy="10" r="1.5" fill="#000"/></svg>
+      <span style="font-size:13px;font-weight:600;">65</span>
+    </div>
+  </div>
+
+  <!-- NAV BAR -->
+  <div class="nav-bar" id="main-nav">
+    <div class="nav-back" id="back-btn" style="opacity:0;pointer-events:none;">
+      <svg viewBox="0 0 10 17" fill="none"><path d="M8.5 1.5L1.5 8.5L8.5 15.5" stroke="#8e8e93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Back</span>
+    </div>
+    <div class="nav-logo">
+      <svg class="logo-icon" viewBox="0 0 36 36" fill="none">
+        <path d="M18 2L6 9V20C6 27 12 33 18 35C24 33 30 27 30 20V9L18 2Z" fill="#1a3fd4"/>
+        <path d="M18 2L30 9V20C30 27 24 33 18 35V2Z" fill="#1a3fd4" opacity="0.7"/>
+        <path d="M14 14L18 8L22 14L18 20L14 14Z" fill="#d4a017"/>
+      </svg>
+      <span class="logo-text">unlock.</span>
+    </div>
+    <div class="nav-help">?</div>
+  </div>
+
+  <!-- ═══════════════════════
+       SCREEN 1: ORDER LIST
+  ══════════════════════════ -->
+  <div class="screen active" id="screen-1">
+    <div class="tabs-bar">
+      <div class="tab-item active">In Progress</div>
+      <div class="tab-item">Completed</div>
+    </div>
+    <div class="order-card" onclick="goTo(2)" style="cursor:pointer;">
+      <div class="time-badge"><span contenteditable="true">Time left: 781h 11m</span></div>
+      <div class="order-address-bold" contenteditable="true">131-02B 40th Rd #20s, Flushing...</div>
+      <div class="order-address-sub" contenteditable="true">131-02B 40th Rd #20s, Flushing, NY 11354, USA</div>
+      <div class="daylight-row">
+        <span>🌤️</span>
+        <span contenteditable="true">Day light</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════
+       SCREEN 2: ORDER DETAIL
+  ═══════════════════════════ -->
+  <div class="screen" id="screen-2">
+    <div class="detail-address" contenteditable="true">131-02B 40th Rd #20s, Flushing, NY 11354, USA</div>
+
+    <div class="section-label">Supporting documents</div>
+    <div class="doc-card">
+      <div class="doc-thumb">🏠</div>
+      <div>
+        <div class="doc-name" contenteditable="true">Sample Photos</div>
+        <div class="doc-type" contenteditable="true">JPG</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="instructions-section">
+      <div class="instructions-header">Instructions</div>
+      <div class="special-label">Special Instructions:</div>
+      <div class="special-text">📷 <span contenteditable="true">To complete your inspection, take photos of both the <b>interior and exterior</b> of your home. Please refer to the <b>Sample Photos</b> document above for examples of what each photo should look like.</span></div>
+    </div>
+
+    <div class="req-photos-heading">📷 <span contenteditable="true">Required Photos</span></div>
+
+    <div class="req-section">
+      <div class="req-section-title">🛣️ <span contenteditable="true">Street Scene</span></div>
+      <ul class="req-list">
+        <li><span contenteditable="true"><b>2 photos</b> — one in each direction down the street</span></li>
+        <li><span contenteditable="true">Stand to the side of the road and photograph <b>down the street</b>, not your home.</span></li>
+      </ul>
+    </div>
+
+    <div class="req-section">
+      <div class="req-section-title">🏛️ <span contenteditable="true">Address Verification</span></div>
+      <ul class="req-list">
+        <li><span contenteditable="true">1 clear photo showing the <b>house number</b></span></li>
+        <li><span contenteditable="true">(mailbox, house, curb marking, or posted address sign)</span></li>
+      </ul>
+    </div>
+
+    <div class="req-section">
+      <div class="req-section-title">🏡 <span contenteditable="true">Exterior Photos</span></div>
+      <ul class="req-list">
+        <li><span contenteditable="true"><b>Front of the Home</b></span></li>
+        <li><span contenteditable="true"><b>Front Right Corner</b></span></li>
+        <li><span contenteditable="true"><b>Front Left Corner</b></span></li>
+        <li><span contenteditable="true"><b>Rear of the Home</b></span></li>
+      </ul>
+    </div>
+
+    <div class="req-section">
+      <div class="req-section-title">🏠 <span contenteditable="true">Interior Photos</span></div>
+      <div style="font-size:15px;color:#000;margin-bottom:4px;" contenteditable="true">All rooms and levels — including mechanicals</div>
+      <ul class="req-list">
+        <li><span contenteditable="true"><b>Minimum 2 photos per room</b></span></li>
+        <li><span contenteditable="true">Include HVAC, A/C, water heater, and appliances</span></li>
+      </ul>
+    </div>
+
+    <div class="req-section">
+      <div class="req-section-title">🚗 <span contenteditable="true">Additional Structures</span></div>
+      <div style="font-size:15px;color:#000;margin-bottom:4px;" contenteditable="true">Photograph any additional structures on the property:</div>
+      <ul class="req-list">
+        <li><span contenteditable="true"><b>Garage</b></span></li>
+        <li><span contenteditable="true"><b>Sheds / Outbuildings</b></span></li>
+      </ul>
+    </div>
+
+    <div class="req-section">
+      <div class="req-section-title">⭐ <span contenteditable="true">Unique Features</span></div>
+      <div style="font-size:15px;color:#000;margin-bottom:4px;" contenteditable="true">If your property has any of the following, please photograph them:</div>
+      <ul class="req-list">
+        <li><span contenteditable="true"><b>Pool / Pool Spa</b></span></li>
+        <li><span contenteditable="true"><b>Deck / Patio</b></span></li>
+        <li><span contenteditable="true"><b>Outdoor Kitchen</b></span></li>
+        <li><span contenteditable="true"><b>ADU / In-Law Unit</b></span></li>
+        <li><span contenteditable="true"><b>Carport</b></span></li>
+        <li><span contenteditable="true"><b>Other notable yard features</b></span></li>
+      </ul>
+    </div>
+
+    <div class="purpose-section">
+      <div class="purpose-label">Additional Notes:</div>
+    </div>
+
+    <div style="padding:0 20px;">
+      <div class="questions-title">📞 <span contenteditable="true">Questions or Issues</span></div>
+      <div class="questions-body">
+        <div contenteditable="true">If you have any questions while on-site:</div>
+        <ul class="questions-list">
+          <li><span contenteditable="true">Use the <b>in-app chat</b></span></li>
+          <li><span contenteditable="true">Or call the ProxyPics team.</span></li>
+        </ul>
+        <br>
+        <div contenteditable="true">When calling, let us know you are completing an <b>order for Unlock</b> and provide the <b>property address</b>.</div>
+      </div>
+    </div>
+
+    <div class="phone-row">
+      📞 <span contenteditable="true"><b>ProxyPics Help:</b> <span class="phone-num">(312) 799-7427</span></span>
+    </div>
+
+    <div class="time-complete">
+      <span style="font-size:20px;">⏱️</span>
+      <span contenteditable="true"><b>Time to complete:</b> 781h 11m</span>
+    </div>
+
+    <div class="chat-section">
+      <div class="chat-circle">💬</div>
+      <div class="chat-label" contenteditable="true">Chat with us</div>
+    </div>
+
+    <div class="divider" style="margin:0 16px;"></div>
+
+    <!-- Nav cards -->
+    <div class="task-nav-card" onclick="goTo(3)" style="cursor:pointer; margin-top:10px;">
+      <div class="task-nav-icon">📷</div>
+      <div class="task-nav-body">
+        <div class="task-nav-title" contenteditable="true">Photos</div>
+        <div class="task-nav-sub" contenteditable="true">2/7 + extra photos</div>
+      </div>
+    </div>
+
+    <div class="task-nav-card" style="cursor:pointer;">
+      <div class="task-nav-icon" style="font-size:18px;">📋</div>
+      <div class="task-nav-body">
+        <div class="task-nav-title" contenteditable="true">Questionnaire</div>
+        <div class="task-nav-sub" contenteditable="true">0/1</div>
+      </div>
+    </div>
+
+    <div class="submit-btn">
+      <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#8e8e93" stroke-width="1.5"/><path d="M6 10L9 13L14 7" stroke="#8e8e93" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span contenteditable="true">Submit Assignment</span>
+    </div>
+    <div style="height:20px;"></div>
+  </div>
+
+  <!-- ═══════════════════════════
+       SCREEN 3: TASKS / PHOTO LIST
+  ═══════════════════════════ -->
+  <div class="screen" id="screen-3">
+    <div class="tasks-title" contenteditable="true">Tasks</div>
+
+    <div class="instructions-row">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#8e8e93" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span contenteditable="true">Instructions</span>
+    </div>
+
+    <div class="address-confirm" contenteditable="true">Before you begin, confirm you are at the correct property: 131-02B 40th Rd #20s, Flushing, NY 11354, USA</div>
+    <div class="reject-warning" contenteditable="true">Photos submitted for the wrong address will not be accepted and you'll need to start over.</div>
+
+    <div class="divider" style="margin:0 16px 10px;"></div>
+
+    <!-- Interior/Unique Features card -->
+    <div class="task-card">
+      <div class="task-card-body">
+        <div class="task-title" contenteditable="true">Interior / Unique Features (Unlimited)</div>
+        <div class="task-desc" contenteditable="true">Take at least 2 photos of each room on every level of the home. Include mechanicals — HVAC, A/C, water heater, and appliances. Also photograph any unique features like a pool, deck, or outbuilding.</div>
+        <div class="task-count" contenteditable="true">1 / Unlimited</div>
+      </div>
+      <div onclick="goTo(4)" style="cursor:pointer;">
+        <svg class="task-camera" viewBox="0 0 30 24" fill="none"><rect x="1" y="5" width="28" height="18" rx="4" stroke="#c6c6c8" stroke-width="1.5"/><circle cx="15" cy="14" r="5" stroke="#c6c6c8" stroke-width="1.5"/><path d="M9 5L11 2H19L21 5" stroke="#c6c6c8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+
+    <!-- Street Photo Right -->
+    <div class="task-card">
+      <div class="task-card-body">
+        <div class="task-title" contenteditable="true">Street Photo Right</div>
+        <div class="task-desc" contenteditable="true">Stand safely to the side of the road. Take a photo looking down the street to the right — not of your home.</div>
+      </div>
+      <svg class="task-camera" viewBox="0 0 30 24" fill="none"><rect x="1" y="5" width="28" height="18" rx="4" stroke="#c6c6c8" stroke-width="1.5"/><circle cx="15" cy="14" r="5" stroke="#c6c6c8" stroke-width="1.5"/><path d="M9 5L11 2H19L21 5" stroke="#c6c6c8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Street Photo Left -->
+    <div class="task-card">
+      <div class="task-card-body">
+        <div class="task-title" contenteditable="true">Street Photo Left</div>
+        <div class="task-desc" contenteditable="true">Stand safely to the side of the road. Take a photo looking down the street to the left — not of your home.</div>
+      </div>
+      <svg class="task-camera" viewBox="0 0 30 24" fill="none"><rect x="1" y="5" width="28" height="18" rx="4" stroke="#c6c6c8" stroke-width="1.5"/><circle cx="15" cy="14" r="5" stroke="#c6c6c8" stroke-width="1.5"/><path d="M9 5L11 2H19L21 5" stroke="#c6c6c8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Subject's Address -->
+    <div class="task-card">
+      <div class="task-card-body">
+        <div class="task-title" contenteditable="true">Address Verification</div>
+        <div class="task-desc" contenteditable="true">Take a clear, zoomed-in photo of the property's address. If no number is visible on the house or mailbox, photograph the street sign or a neighbor's visible address instead.</div>
+      </div>
+      <svg class="task-camera" viewBox="0 0 30 24" fill="none"><rect x="1" y="5" width="28" height="18" rx="4" stroke="#c6c6c8" stroke-width="1.5"/><circle cx="15" cy="14" r="5" stroke="#c6c6c8" stroke-width="1.5"/><path d="M9 5L11 2H19L21 5" stroke="#c6c6c8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Front -->
+    <div class="task-card">
+      <div class="task-card-body">
+        <div class="task-title" contenteditable="true">Front of Home</div>
+        <div class="task-desc" contenteditable="true">Photograph the entire front of the home. Hold your phone horizontally. Keep people, vehicles, and obstructions out of the frame. (Vertical only for high-rise buildings.)</div>
+      </div>
+      <svg class="task-camera" viewBox="0 0 30 24" fill="none"><rect x="1" y="5" width="28" height="18" rx="4" stroke="#c6c6c8" stroke-width="1.5"/><circle cx="15" cy="14" r="5" stroke="#c6c6c8" stroke-width="1.5"/><path d="M9 5L11 2H19L21 5" stroke="#c6c6c8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Front Left — with AI retake -->
+    <div class="task-card" style="flex-direction:column; gap:0;">
+      <div style="display:flex; align-items:flex-start; gap:12px; width:100%;">
+        <div class="task-card-body">
+          <div class="task-title" contenteditable="true">Front Left Corner</div>
+          <div class="task-desc" contenteditable="true">Photograph the front of the home at an angle showing both the front and the left side. Hold your phone horizontally. Keep people, vehicles, and obstructions out of the frame.</div>
+        </div>
+        <!-- Uploaded photo placeholder -->
+        <div style="width:80px;height:80px;border-radius:8px;background:#444;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px;">🖥️</div>
+      </div>
+      <div class="ai-retake" contenteditable="true">Please retake this photo to match what's shown in the title above. If you (human) are sure it's right and the AI's just being picky, go ahead and proceed.</div>
+      <div class="click-sample">
+        <span class="read-more" contenteditable="true">Click here for sample</span>
+        <div class="check-circle">
+          <svg width="14" height="11" viewBox="0 0 14 11" fill="none"><path d="M1 5.5L5 9.5L13 1.5" stroke="#3333ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Front Right -->
+    <div class="task-card">
+      <div class="task-card-body">
+        <div class="task-title" contenteditable="true">Front Right Corner</div>
+        <div class="task-desc" contenteditable="true">Photograph the front of the home at an angle showing both the front and the right side. Hold your phone horizontally. Keep people, vehicles, and obstructions out of the frame.</div>
+      </div>
+      <svg class="task-camera" viewBox="0 0 30 24" fill="none"><rect x="1" y="5" width="28" height="18" rx="4" stroke="#c6c6c8" stroke-width="1.5"/><circle cx="15" cy="14" r="5" stroke="#c6c6c8" stroke-width="1.5"/><path d="M9 5L11 2H19L21 5" stroke="#c6c6c8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Rear of building -->
+    <div class="task-card">
+      <div class="task-card-body">
+        <div class="task-title" contenteditable="true">Rear of Home</div>
+        <div class="task-desc" contenteditable="true">Photograph the entire rear of the home. Hold your phone horizontally. Keep people, vehicles, and obstructions out of the frame. (Vertical only for high-rise buildings.)</div>
+      </div>
+      <svg class="task-camera" viewBox="0 0 30 24" fill="none"><rect x="1" y="5" width="28" height="18" rx="4" stroke="#c6c6c8" stroke-width="1.5"/><circle cx="15" cy="14" r="5" stroke="#c6c6c8" stroke-width="1.5"/><path d="M9 5L11 2H19L21 5" stroke="#c6c6c8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <div class="save-btn" onclick="goTo(4)">Save and go back</div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       SCREEN 4: INTERIOR / UNIQUE FEATURES
+  ═══════════════════════════════════ -->
+  <div class="screen" id="screen-4">
+    <div class="interior-title" contenteditable="true">Interior / Unique Features</div>
+
+    <div class="tap-card">
+      <div class="tap-plus">+</div>
+      <div class="tap-title" contenteditable="true">Tap to take extra photo</div>
+      <div class="tap-desc" contenteditable="true">Take 2 Photos for each room including all levels, additionally mechanicals(HVAC, A/C, WATER HEATER, APPLIANCES) and any unique features like pools, decks, outbuildings, etc.</div>
+    </div>
+
+    <div class="instructions-row" style="margin:0 16px 12px; border-radius:10px; background:#f2f2f7; border:none;">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4L6 8L10 4" stroke="#8e8e93" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span contenteditable="true">Instructions</span>
+    </div>
+
+    <!-- Room with photos -->
+    <div class="room-section">
+      <div class="room-name" contenteditable="true">Office</div>
+      <div class="room-photos">
+        <!-- Uploaded photo -->
+        <div class="room-photo">
+          🖥️
+          <div class="room-check">✓</div>
+        </div>
+        <!-- Add photo -->
+        <div class="add-photo-btn" onclick="goTo(5)" style="cursor:pointer;">
+          <div class="add-plus">+</div>
+          <span contenteditable="true">Add Photo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="save-btn">Save and go back</div>
+  </div>
+
+  <!-- ═══════════════════════════
+       SCREEN 5: ROOM PICKER
+  ═══════════════════════════ -->
+  <div class="screen" id="screen-5">
+    <div class="room-picker-title" contenteditable="true">Please choose the room you're in</div>
+    <div class="room-grid">
+      <!-- Natural home walk-through order: entry → main living → bedrooms/baths → service rooms → exterior -->
+      <div class="room-btn" contenteditable="true">Foyer/Entry</div>
+      <div class="room-btn" contenteditable="true">Living Room</div>
+      <div class="room-btn" contenteditable="true">Kitchen</div>
+      <div class="room-btn" contenteditable="true">Dining Room</div>
+      <div class="room-btn" contenteditable="true">Family Room</div>
+      <div class="room-btn" contenteditable="true">Den</div>
+      <div class="room-btn" contenteditable="true">Sun Room</div>
+      <div class="room-btn" contenteditable="true">Bedroom</div>
+      <div class="room-btn" contenteditable="true">Full Bathroom</div>
+      <div class="room-btn" contenteditable="true">Half Bathroom</div>
+      <div class="room-btn" contenteditable="true">Hall</div>
+      <div class="room-btn" contenteditable="true">Stairs</div>
+      <div class="room-btn" contenteditable="true">Loft</div>
+      <div class="room-btn" contenteditable="true">Office</div>
+      <div class="room-btn" contenteditable="true">Laundry Room</div>
+      <div class="room-btn" contenteditable="true">Rec Room</div>
+      <div class="room-btn" contenteditable="true">Basement</div>
+      <div class="room-btn" contenteditable="true">Library</div>
+      <div class="room-btn" contenteditable="true">Media Room</div>
+      <div class="room-btn" contenteditable="true">Utility Room</div>
+      <div class="room-btn" contenteditable="true">Workshop</div>
+      <div class="room-btn" contenteditable="true">Converted Garage</div>
+      <div class="room-btn" contenteditable="true">Butler's Pantry</div>
+      <div class="room-btn" style="min-width:160px;" contenteditable="true">Unfinished Basement</div>
+      <div class="room-btn" contenteditable="true">Attached Garage</div>
+      <div class="room-btn" contenteditable="true">Detached Garage</div>
+      <div class="room-btn" contenteditable="true">Carport</div>
+      <div class="room-btn" style="min-width:160px;" contenteditable="true">ADU / In-Law Unit</div>
+      <div class="room-btn" contenteditable="true">Pool</div>
+      <div class="room-btn" contenteditable="true">Pool Spa</div>
+      <div class="room-btn" contenteditable="true">Deck</div>
+      <div class="room-btn" contenteditable="true">Patio</div>
+      <div class="room-btn" contenteditable="true">Outdoor Kitchen</div>
+      <div class="room-btn-full" contenteditable="true">Other</div>
+      <div class="room-btn-full" contenteditable="true">Add custom label for photo</div>
+    </div>
+  </div>
+
+  <!-- BOTTOM URL BAR -->
+  <div class="bottom-bar">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="bottom-icon"><path d="M2 9H16M9 2V16" stroke="#3c3c43" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <div class="bottom-url">inspection.proxypics.com</div>
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" class="bottom-icon"><path d="M9 15A6 6 0 1 0 9 3A6 6 0 0 0 9 15Z" stroke="#3c3c43" stroke-width="1.5"/><path d="M9 9V13M9 6V6.5" stroke="#3c3c43" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </div>
+
+</div>
+
+<!-- NAVIGATION CONTROLS (outside phone) -->
+<div class="screen-nav">
+  <button class="screen-btn" onclick="goTo(Math.max(1, currentScreen-1))">← Prev</button>
+  <button class="screen-btn" id="screen-indicator" style="background:#555;cursor:default;">1 / 5</button>
+  <button class="screen-btn" onclick="goTo(Math.min(5, currentScreen+1))">Next →</button>
+</div>
+
+<script>
+let currentScreen = 1;
+
+function goTo(n) {
+  document.getElementById('screen-' + currentScreen).classList.remove('active');
+  currentScreen = n;
+  document.getElementById('screen-' + currentScreen).classList.add('active');
+  document.getElementById('screen-indicator').textContent = currentScreen + ' / 5';
+
+  // Show/hide back button
+  const backBtn = document.getElementById('back-btn');
+  if (currentScreen === 1) {
+    backBtn.style.opacity = '0';
+    backBtn.style.pointerEvents = 'none';
+  } else {
+    backBtn.style.opacity = '1';
+    backBtn.style.pointerEvents = 'auto';
+    backBtn.onclick = () => goTo(currentScreen - 1);
+  }
+
+  // Scroll to top
+  document.getElementById('screen-' + currentScreen).scrollTop = 0;
+}
+
+// Prevent contenteditable from triggering navigation
+document.querySelectorAll('[contenteditable]').forEach(el => {
+  el.addEventListener('click', e => e.stopPropagation());
+});
+
+// Fade out the edit hint after 3s
+setTimeout(() => {
+  document.querySelector('.edit-hint').style.opacity = '0';
+  document.querySelector('.edit-hint').style.transition = 'opacity 1s';
+}, 3000);
+</script>
+</body>
+</html>
